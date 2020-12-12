@@ -1,7 +1,7 @@
 pipeline {
 	agent none
 	stages {
-		stage{
+		stage('COPY FILE'){
 			steps([$class: 'BapSshPromotionPublisherPlugin']){
 				sshPublisher(
 					continueOnError: false, failOnError: true,
