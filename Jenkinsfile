@@ -2,7 +2,7 @@ pipeline {
 	agent any
 	triggers { pollSCM('* * * * *') }
 	stages {
-    satge('Build') {
+    stage('Build') {
       steps {
         sh 'echo "Build"'
       }
