@@ -3,8 +3,8 @@ pipeline {
 	triggers { pollSCM('* * * * *') }
 	stages {
     stage('Delivery') {
+      failFast true
       parallel {
-        failFast true
         stage('Demo') {
           when {
             branch 'demo'
