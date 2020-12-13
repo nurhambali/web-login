@@ -4,6 +4,7 @@ pipeline {
 	stages {
     stage('Delivery') {
       parallel {
+        failFast true
         stage('Demo') {
           when {
             branch 'demo'
