@@ -2,6 +2,11 @@ pipeline {
 	agent any
 	triggers { pollSCM('* * * * *') }
 	stages {
+    satge('Build') {
+      steps {
+        sh 'echo "Build"'
+      }
+    }
     stage('Delivery') {
       failFast true
       parallel {
@@ -10,7 +15,7 @@ pipeline {
             branch 'demo'
           }
           steps {
-            sh 'echo "INI DEMO" '
+            sh 'echo "INI DEMO"'
           }
         }
         stage('Prodaction') {
@@ -24,4 +29,9 @@ pipeline {
       }
 		}
 	}
+  post {
+    always {
+      archiveArtifacts allowEmptyArchive: true, artifacts: 'index.html', fingerprint: true
+    }
+  }
 }
