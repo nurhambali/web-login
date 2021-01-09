@@ -32,22 +32,22 @@ pipeline {
           when {
             branch 'main'
           }
-        steps([$class: 'BapSshPromotionPublisherPlugin']) {
+    stage('SSH transfer') {
+			steps([$class: 'BapSshPromotionPublisherPlugin']) {
         sshPublisher(
-          continueOnError: false, failOnError: true,
+        
           publishers: [
           sshPublisherDesc(
            configName: "server-01",
            verbose: true,
-           transfers: [
-            ssTransfer(
+           transfers: [ssTransfer(sourceFiles:"**",
               sourceFiles:"**",
               remoteDirectory: "/tmp",
               execCommand: "systemctl restart nginx"
               )])]
           )
-        }
       }
+		}	
 		}
 	}}
   post {
