@@ -40,7 +40,7 @@ pipeline {
             ssTransfer(
               sourceFiles:"dist/**",
               removePrefix: "/tmp",
-              remoteDirectory: "/tmp"
+              remoteDirectory: "/tmp",
               exeCommand :"systemctl restart nginx"
             )
 
