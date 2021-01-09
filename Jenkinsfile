@@ -28,14 +28,28 @@ pipeline {
             sh 'echo "INI DEMO"'
           }
         }
-        stage('Prodaction') {
-          when {
-            branch 'main'
-          }
-          steps {
-            sh 'echo "INI main"'
-          }
-        }
+    stage('SSH transfer') {
+			steps([$class: 'BapSshPromotionPublisherPlugin']) {
+        sshPublisher(
+          continueOnError: false, failOnError: true,
+          publishers: [
+          sshPublisherDesc(
+           configName: "server-01",
+           verbose: true,
+           transfers: [
+            ssTransfer(
+              sourceFiles:"dist/**",
+              removePrefix: "/tmp",
+              remoteDirectory: "/tmp"
+              exeCommand :"systemctl restart nginx"
+            )
+
+           ]
+          )
+          ]
+        )
+      }
+		}	
       }
 		}
 	}
