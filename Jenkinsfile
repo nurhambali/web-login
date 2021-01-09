@@ -32,6 +32,7 @@ pipeline {
           when {
             branch 'main'
           }
+        script{
         steps([$class: 'BapSshPromotionPublisherPlugin']) {
         sshPublisher(
           continueOnError: false, failOnError: true,
@@ -51,7 +52,7 @@ pipeline {
         }
       }
 		}
-	}
+	}}
   post {
     always {
       archiveArtifacts allowEmptyArchive: true, artifacts: 'index.html', fingerprint: true
