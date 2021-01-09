@@ -32,7 +32,6 @@ pipeline {
           when {
             branch 'main'
           }
-        script{
         steps([$class: 'BapSshPromotionPublisherPlugin']) {
         sshPublisher(
           continueOnError: false, failOnError: true,
@@ -48,7 +47,6 @@ pipeline {
               execCommand: "systemctl restart nginx"
               )])]
           )
-        }
         }
       }
 		}
