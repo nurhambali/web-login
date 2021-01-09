@@ -38,7 +38,7 @@ pipeline {
             sshPublisherDesc(
              configName: "server-01",
              verbose: true,
-             transfers: [sshTransfer(sourceFiles:"**",remoteDirectory: "/tmp",execCommand: "systemctl restart nginx")]
+             transfers: [sshTransfer(sourceFiles:"**",remoteDirectory: "/demo",execCommand: "systemctl restart nginx")]
              )
             ]
           )}
