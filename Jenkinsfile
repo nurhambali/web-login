@@ -28,8 +28,11 @@ pipeline {
             sh 'echo "INI DEMO"'
           }
         }
-    stage('SSH transfer') {
-			steps([$class: 'BapSshPromotionPublisherPlugin']) {
+        stage('Prodaction') {
+          when {
+            branch 'main'
+          }
+        steps([$class: 'BapSshPromotionPublisherPlugin']) {
         sshPublisher(
           continueOnError: false, failOnError: true,
           publishers: [
@@ -39,17 +42,13 @@ pipeline {
            transfers: [
             ssTransfer(
               sourceFiles:"dist/**",
-              removePrefix: "dist",
-              remoteDirectory: "/tmp",
+              removePrefix: "/tmp",
+              remoteDirectory: "/tmp"
               exeCommand :"systemctl restart nginx"
-            )
-
-           ]
+              )])]
           )
-          ]
-        )
-      }
-		}	
+        }
+        }
       }
 		}
 	}
@@ -58,4 +57,3 @@ pipeline {
       archiveArtifacts allowEmptyArchive: true, artifacts: 'index.html', fingerprint: true
     }
   }
-}
