@@ -57,3 +57,4 @@ pipeline {
       archiveArtifacts allowEmptyArchive: true, artifacts: 'index.html', fingerprint: true
     }
   }
+}
