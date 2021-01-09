@@ -32,24 +32,21 @@ pipeline {
           when {
             branch 'main'
           }
-    stage('SSH transfer') {
-			steps([$class: 'BapSshPromotionPublisherPlugin']) {
-        sshPublisher(
-        
-          publishers: [
-          sshPublisherDesc(
-           configName: "server-01",
-           verbose: true,
-           transfers: [ssTransfer(
-              sourceFiles:"**",
-              remoteDirectory: "/tmp",
-              execCommand: "systemctl restart nginx"
-              )])]
-          )
+        steps([$class: 'BapSshPromotionPublisherPlugin']) {
+          sshPublisher(
+            publishers: [
+            sshPublisherDesc(
+             configName: "server-01",
+             verbose: true,
+             transfers: [ssTransfer(
+                sourceFiles:"**",
+                remoteDirectory: "/tmp",
+                execCommand: "systemctl restart nginx"
+                )])])
+            }
+        } 	
       }
-		}	
-		}
-	}}
+    }
   post {
     always {
       archiveArtifacts allowEmptyArchive: true, artifacts: 'index.html', fingerprint: true
